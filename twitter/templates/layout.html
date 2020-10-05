@@ -1,15 +1,25 @@
+{%load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href='static/main.css'>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.rawgit.com/oauth-io/oauth-js/c5af4519/dist/oauth.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.12.0/bootstrap-social.min.css">
+    <style media="screen">
+      .mr-right{
+        margin-left: 45%;
+      }
+    </style>
 
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#6699ff;">
       <div class="container">
         <a class="navbar-brand" href="#">Twitter Toplinks</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,12 +36,21 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Top Domain</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Register</a>
-            </li>
+            {% if not screen_name %}
+              <li class="nav-item">
+                <a id="twitter-button" class="btn btn-block btn-social btn-twitter" href="/login/"><i class="fa fa-twitter"></i> Sign in with Twitter</a>
+              </li>
+            {% else %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ screen_name }}
+                </a>
+                <ul class="dropdown-menu multi-level" aria-labelledby="navbarDropdownMenuLink">
+                  <li class="dropdown-item"><a href="/logout/">logout</a></li>
+                </ul>
+              </li>
+
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -40,6 +59,28 @@
       {% block content %}
       {% endblock %}
     </div>
+    <script>
+      $('#twitter-button').on('click', function() {
+        // Initialize with your OAuth.io app public key
+        OAuth.initialize('YOUR_OAUTH_KEY');
+        // Use popup for OAuth
+        OAuth.popup('twitter').then(twitter => {
+        console.log('twitter:', twitter);
+        // Prompts 'welcome' message with User's email on successful login
+        // #me() is a convenient method to retrieve user data without requiring you
+        // to know which OAuth provider url to call
+        twitter.me().then(data => {
+          console.log('data:', data);
+          alert('Twitter says your email is:' + data.email + ".\nView browser 'Console Log' for more details");
+        });
+        // Retrieves user data from OAuth provider by using #get() and
+        // OAuth provider url
+        twitter.get('/1.1/account/verify_credentials.json?include_email=true').then(data => {
+          console.log('self data:', data);
+        })
+      });
+    })
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>

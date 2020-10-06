@@ -4,10 +4,15 @@ from django.db.models import Count, Max
 from datetime import date, timedelta
 from .models import Tweets
 import tweepy
-import re
+import environ
 
-consumer_key = 'w5hjRPSvpbTPje2iKJADjSiru'
-consumer_secret = 'fRfqaJ2OAD2Tm2N7C5n7E4PWg49J7cy6AuNwls5LP0g1fq2VQs'
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+consumer_key = env('CONSUMER_KEY')
+consumer_secret = env('CONSUMER_SECRET')
 
 def home(request):
     tweets = Tweets.objects.all()

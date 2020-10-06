@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title %}Top User{% endblock %}
+
+{% block content %}
+  <style media="screen">
+    .card{
+      width: 250px;
+      padding: 15px;
+      border: 1px solid #ccddff;
+      margin-top: 20px;
+      border-radius: 20px;
+      text-align: center;
+    }
+    .circle{
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .heading{
+      color: #444444;
+      margin-top: 10px;
+      padding-bottom: 5px;
+    }
+  </style>
+  <h2 class='heading'>The Twitter User who has shared the most links</h2>
+  <div class="card">
+    <img class="circle" src="{{ image }}">
+    <h4>{{ user}}</h4>
+    <p><b>Tweet Count:</b>{{ count }}</p>
+  </div>
+{% endblock %}

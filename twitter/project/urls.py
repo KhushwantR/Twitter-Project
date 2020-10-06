@@ -7,4 +7,6 @@ urlpatterns = [
     url(r'^login/$', views.login , name='login'),
     url(r'^logout/$', views.logout , name='logout'),
     url(r'^callback/$', views.callback, name='callback'),
+    url(r'^top/user/$', views.top_user, name='top_user'),
+    url(r'^top/domain/$', views.top_domain, name='top_domain'),
 ]

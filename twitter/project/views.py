@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
+from django.db.models import Count, Max
 import tweepy
 from datetime import date, timedelta
 import re
@@ -28,9 +29,9 @@ def home(request):
         auth.set_access_token(key, secret)
         api = tweepy.API(auth)
         start_date = date.today()
-        end_date = start_date - timedelta(days=7)
+        end_date = start_date# - timedelta(days=7)
 
-
+        """
         for tweet in tweepy.Cursor(api.home_timeline, since=end_date).items(100):
             url = tweet.entities['urls']
             if url:
@@ -43,7 +44,7 @@ def home(request):
 
                 t = Tweets(tweet_id=id, user_name=user_name, text=text, user_image= image, domain=domain)
                 t.save()
-
+            """
 
         tweets = Tweets.objects.all()
         return render(request, 'view_tweets.html', {'screen_name': api.me().screen_name, 'posts': tweets})
@@ -82,3 +83,17 @@ def logout(request):
     request.session.clear()
     #logout(request)
     return redirect('home')
+
+def top_user(request):
+    users = Tweets.objects.values('user_name', 'user_image').order_by().annotate(Count("user_name"))
+    count = 0
+    for x in users:
+        if x['user_name__count'] > count:
+            user = x['user_name']
+            image = x['user_image']
+            count = x['user_name__count']
+
+    return render(request, 'top_user.html', {'user':user, 'count':count, 'image':image})
+
+def top_domain(request):
+    return render(request, 'top_domain.html')

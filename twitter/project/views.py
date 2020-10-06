@@ -86,14 +86,14 @@ def logout(request):
 
 def top_user(request):
     users = Tweets.objects.values('user_name', 'user_image').order_by().annotate(Count("user_name"))
-    count = 0
-    for x in users:
-        if x['user_name__count'] > count:
-            user = x['user_name']
-            image = x['user_image']
-            count = x['user_name__count']
-
-    return render(request, 'top_user.html', {'user':user, 'count':count, 'image':image})
+    user = max(users, key=lambda kv:kv['user_name__count'])
+    return render(request, 'top_user.html', {'user':user})
 
 def top_domain(request):
-    return render(request, 'top_domain.html')
+    domains = Tweets.objects.values('domain').order_by().annotate(Count('domain'))
+    top_domains = sorted(domains, key=lambda kv:kv['domain__count'], reverse=True)
+    i=1
+    for x in top_domains:
+        x['rank'] = i
+        i+=1
+    return render(request, 'top_domain.html', {'domains':top_domains})

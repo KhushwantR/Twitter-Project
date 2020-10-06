@@ -31,8 +31,13 @@
     color: #55ACEE;
     float: right;
   }
-
+  .heading{
+    color: #666666;
+    margin-top: 10px;
+    padding-bottom: 5px;
+  }
 </style>
+  <h3 class="heading"> All the Tweets having URLs </h3>
   {% for post in posts %}
     <div class="posts">
       <img class="circle" src="{{ post.user_image }}"> <strong class='heading'>{{ post.user_name }}</strong>

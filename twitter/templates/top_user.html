@@ -6,7 +6,7 @@
     .card{
       width: 250px;
       padding: 15px;
-      border: 1px solid #ccddff;
+      border: 3px solid #ccddff;
       margin-top: 20px;
       border-radius: 20px;
       text-align: center;
@@ -20,15 +20,15 @@
       margin-right: auto;
     }
     .heading{
-      color: #444444;
+      color: #666666;
       margin-top: 10px;
       padding-bottom: 5px;
     }
   </style>
-  <h2 class='heading'>The Twitter User who has shared the most links</h2>
+  <h3 class='heading'>The Twitter User who has shared the most links</h3>
   <div class="card">
-    <img class="circle" src="{{ image }}">
-    <h4>{{ user}}</h4>
-    <p><b>Tweet Count:</b>{{ count }}</p>
+    <img class="circle" src="{{ user.user_image }}">
+    <h4>{{ user.user_name }}</h4>
+    <p><b>Tweet Count:</b>{{ user.user_name__count }}</p>
   </div>
 {% endblock %}

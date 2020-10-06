@@ -4,11 +4,38 @@
 {% block content %}
   <style media="screen">
     .heading{
-      color: #444444;
+      color: #666666;
       margin-top: 10px;
       padding-bottom: 5px;
     }
+    .card{
+      width: 30%;
+      padding: 5px;
+      border: 2px solid #ccddff;
+      margin-top: 20px;
+      border-radius: 20px;
+      text-align: center;
+    }
+    .box1{
+      font-size:3.5em;
+      width: 20px;
+      font-weight: bold;
+      color: #666666;
+      float:left;
+      margin-right: 40px;
+    }
+    .box2{
+      display:inline;
+    }
   </style>
-  <h2 class="heading">List of Top Domains Shared by Users</h2>
-
+  <h3 class="heading">List of Top Domains Shared by Users</h3>
+  {% for x in domains %}
+    <div class="box2">
+      <p class='box1'>{{ x.rank }}</p>
+      <div class="card">
+        <h6 class="heading">{{ x.domain }}</h6>
+        <p>Count : {{ x.domain__count }}</p>
+      </div>
+    </div>
+  {% endfor %}
 {% endblock %}

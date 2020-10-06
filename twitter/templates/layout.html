@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.12.0/bootstrap-social.min.css">
     <style media="screen">
-      .mr-right{
-        margin-left: 45%;
+      .right{
+        float: right;
       }
     </style>
 
@@ -25,33 +25,32 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto mr-right">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Tweets with links</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Top User</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Top Domain</a>
-            </li>
-            {% if not screen_name %}
+        <div class="right">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a id="twitter-button" class="btn btn-block btn-social btn-twitter" href="/login/"><i class="fa fa-twitter"></i> Sign in with Twitter</a>
+                <a class="nav-link" href="#">Top User</a>
               </li>
-            {% else %}
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{ screen_name }}
-                </a>
-                <ul class="dropdown-menu multi-level" aria-labelledby="navbarDropdownMenuLink">
-                  <li class="dropdown-item"><a href="/logout/">logout</a></li>
-                </ul>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Top Domain</a>
               </li>
+              {% if not screen_name %}
+                <li class="nav-item">
+                  <a id="twitter-button" class="btn btn-block btn-social btn-twitter" href="/login/"><i class="fa fa-twitter"></i> Sign in with Twitter</a>
+                </li>
+              {% else %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ screen_name }}
+                  </a>
+                  <ul class="dropdown-menu multi-level" aria-labelledby="navbarDropdownMenuLink">
+                    <li class="dropdown-item"><a href="/logout/">logout</a></li>
+                  </ul>
+                </li>
 
-            {% endif %}
-          </ul>
+              {% endif %}
+            </ul>
+          </div>
         </div>
       </div>
     </nav>

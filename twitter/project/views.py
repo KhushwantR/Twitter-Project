@@ -3,9 +3,22 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 import tweepy
+from datetime import date, timedelta
+import re
+from .models import Tweets
 
 consumer_key = ''
 consumer_secret = ''
+
+def extract_domain(url):
+    count = 0
+    for i in range(0, len(url)):
+        if url[i] == "/":
+            count += 1
+        if count == 3:
+            break
+
+    return url[0:i]
 
 def home(request):
     key = request.session.get('access_token')
@@ -14,7 +27,26 @@ def home(request):
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(key, secret)
         api = tweepy.API(auth)
-        return render(request, 'layout.html', {'screen_name': api.me().screen_name})
+        start_date = date.today()
+        end_date = start_date - timedelta(days=7)
+
+
+        for tweet in tweepy.Cursor(api.home_timeline, since=end_date).items(100):
+            url = tweet.entities['urls']
+            if url:
+                expanded_url = url[0]['expanded_url']
+                domain = extract_domain(expanded_url)
+                id = tweet.id
+                user_name = tweet.user.name
+                text = tweet.text
+                image = tweet.user.profile_image_url
+
+                t = Tweets(tweet_id=id, user_name=user_name, text=text, user_image= image, domain=domain)
+                t.save()
+
+
+        tweets = Tweets.objects.all()
+        return render(request, 'view_tweets.html', {'screen_name': api.me().screen_name, 'posts': tweets})
 
     return render(request, 'layout.html')
 
@@ -42,8 +74,6 @@ def callback(request):
     request.session['access_token'] = auth.access_token
     request.session['access_token_secret'] = auth.access_token_secret
 
-    auth.set_access_token(auth.access_token, auth.access_token_secret)
-    api = tweepy.API(auth)
     login(request)
 
     return redirect('home')
@@ -51,5 +81,4 @@ def callback(request):
 def logout(request):
     request.session.clear()
     #logout(request)
-
     return redirect('home')

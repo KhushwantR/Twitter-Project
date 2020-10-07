@@ -8,11 +8,11 @@
 
   <h3 class="heading">List of Top Domains Shared by Users</h3>
   {% for x in domains %}
-    <div class="box1">
-      <p class='box2'>{{ x.rank }}</p>
+    <div class="outer_box">
+      <div class='inner_box'>{{ x.rank }}</div>
       <div class="card">
         <h6 class="heading">{{ x.domain }}</h6>
-        <p>Count : {{ x.domain__count }}</p>
+        Count : {{ x.domain__count }}
       </div>
     </div>
   {% endfor %}

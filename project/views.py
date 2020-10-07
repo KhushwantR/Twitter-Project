@@ -22,13 +22,14 @@ def home(request):
 
 def extract_domain(url):
     count = 0
+    start = 0
     for i in range(0, len(url)):
         if url[i] == "/":
             count += 1
-        if count == 2:
-            start = i+1
-        if count == 3:
-            break
+            if count == 2:
+                start = i+1
+            elif count == 3:
+                break
 
     return url[start:i]
 
@@ -50,8 +51,6 @@ def persist_tweets(request):
         if url:
             expanded_url = url[0]['expanded_url']
             domain = extract_domain(expanded_url)
-            if domain[0:7] == 'twitter':
-                continue
             id = tweet.id
             user_name = tweet.user.name
             text = tweet.text

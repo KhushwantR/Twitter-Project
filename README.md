@@ -27,7 +27,7 @@ This Django based Web application uses Twitter Api Tweepy for authentication and
 
 3. Create a virtual environment and activate it.
 
-4. Create a Twitter Developer and a create project to generate Consumer_key and Consumer_secret and add them in the project/views.py file.
+4. Create a Twitter Developer and create a project to generate Consumer_key and Consumer_secret and add them in the project/views.py file.
 
 5. Create a Database and replace the credentials in the project/settings.py file in the Database section.
 

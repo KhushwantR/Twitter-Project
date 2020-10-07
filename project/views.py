@@ -45,7 +45,6 @@ def persist_tweets(request):
     start_date = date.today()
     end_date = start_date - timedelta(days=7)
 
-    """
     for tweet in tweepy.Cursor(api.home_timeline, since=end_date).items(100):
         url = tweet.entities['urls']
         if url:
@@ -58,7 +57,7 @@ def persist_tweets(request):
 
             t = Tweets(tweet_id=id, user_name=user_name, text=text, user_image= image, domain=domain)
             t.save()
-    """
+            
     return redirect('home')
 
 

@@ -1,0 +1,30 @@
+.posts{
+  padding: 15px;
+  border: 1px solid #55ACEE;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 60%;
+  border-radius: 20px;
+
+}
+.circle{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  margin-right: 7px;
+}
+.fa {
+  font-size: 30px;
+  text-align: center;
+  text-decoration: none;
+}
+.fa-twitter{
+  color: #55ACEE;
+  float: right;
+}
+.heading{
+  color: #666666;
+  margin-top: 10px;
+  padding-bottom: 5px;
+}

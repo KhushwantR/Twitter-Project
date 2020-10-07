@@ -12,23 +12,12 @@
     <script src="https://cdn.rawgit.com/oauth-io/oauth-js/c5af4519/dist/oauth.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.12.0/bootstrap-social.min.css">
-    <style media="screen">
-      .right{
-        float: right;
-      }
-      .fa {
-        font-size: 30px;
-        text-align: center;
-        text-decoration: none;
-      }
-      .fa-twitter{
-        background: white;
-        color: #55ACEE;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/static/layout.css">
 
     <title>{% block title %}{% endblock %}</title>
+    {% block head %}{% endblock %}
   </head>
+
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#55ACEE;">
       <div class="container">

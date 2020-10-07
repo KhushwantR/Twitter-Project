@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Top Domain{% endblock %}
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="/static/top_domain.css">
+{% endblock %}
+
+{% block content %}
+
+  <h3 class="heading">List of Top Domains Shared by Users</h3>
+  {% for x in domains %}
+    <div class="box1">
+      <p class='box2'>{{ x.rank }}</p>
+      <div class="card">
+        <h6 class="heading">{{ x.domain }}</h6>
+        <p>Count : {{ x.domain__count }}</p>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

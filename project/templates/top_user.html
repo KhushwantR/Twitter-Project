@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Top User{% endblock %}
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="/static/top_user.css">
+{% endblock %}
+
+{% block content %}
+
+  <h3 class='heading'>The Twitter User who has shared the most links</h3>
+  <div class="card">
+    <img class="circle" src="{{ user.user_image }}">
+    <h4>{{ user.user_name }}</h4>
+    <p><b>Tweet Count: </b>{{ user.user_name__count }}</p>
+  </div>
+{% endblock %}

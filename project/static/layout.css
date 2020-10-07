@@ -10,3 +10,9 @@
   background: white;
   color: #55ACEE;
 }
+
+.nav-link, .navbar-brand{
+  color: white;
+  font-weight: bold;
+  font-size: 110%;
+}

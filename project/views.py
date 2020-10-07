@@ -15,12 +15,21 @@ consumer_key = env('CONSUMER_KEY')
 consumer_secret = env('CONSUMER_SECRET')
 
 def home(request):
-    tweets = Tweets.objects.all()
+    """
+        The first page on the website which shows all the tweets
+        and provides option for sign in with twitter
+    """
+    tweets = Tweets.objects.all() #extracts all the tweets from the database
+    tweets = tweets[::-1]
     name = request.session.get('screen_name')
     return render(request, 'view_tweets.html', {'screen_name': name, 'posts': tweets})
 
 
 def extract_domain(url):
+    """
+        This function is passed the expanded url and returns only the domain name of the website
+        It is only used by persist_tweets()
+    """
     count = 0
     start = 0
     for i in range(0, len(url)):
@@ -35,6 +44,13 @@ def extract_domain(url):
 
 
 def persist_tweets(request):
+    """
+        This is only called once when the user tries to sign in 
+        and when called upon it creates an api instance and extracts 
+        tweets for the past 7 days from the user's home timeline and 
+        adds the tweet_id, text, domain, user_image_url in the database
+    """
+    
     key = request.session.get('access_token')
     secret = request.session.get('access_token_secret')
 
@@ -51,18 +67,22 @@ def persist_tweets(request):
         if url:
             expanded_url = url[0]['expanded_url']
             domain = extract_domain(expanded_url)
-            id = tweet.id
-            user_name = tweet.user.name
-            text = tweet.text
-            image = tweet.user.profile_image_url
+            id = tweet.id  #the id of a tweet
+            user_name = tweet.user.name  #the name of the user who tweeted
+            text = tweet.text  #the content of the tweet
+            image = tweet.user.profile_image_url  #the profile image of the user
 
             t = Tweets(tweet_id=id, user_name=user_name, text=text, user_image= image, domain=domain)
-            t.save()
+            t.save() #for adding tweets to the database
 
     return redirect('home')
 
 
 def login(request):
+    """
+        As the user clicks on sign in this function starts working.
+        this fetches the twitter authorization url and redirects the to it.
+    """
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     try:
         redirect_url = auth.get_authorization_url()
@@ -73,6 +93,13 @@ def login(request):
 
 
 def callback(request):
+    """
+        After authentication on twitter, user gets back on this where the user's
+        details are extracted and saved in session.
+        Then it goes to persist_tweets() to add tweets to database which then takes
+        the user to the home page which displays all the tweets.
+    """
+    
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     request_token = request.session.get('request_token')
     request.session.delete('request_token')
@@ -93,11 +120,17 @@ def callback(request):
 
 
 def logout(request):
+    """
+        The simple task of logout is performed, which deletes user information from the session.
+    """
     request.session.clear()
     return redirect('home')
 
 
 def top_user(request):
+    """
+        Computes and displays the user who shared the most links.
+    """
     name = request.session.get('screen_name')
     if not name:
         return redirect('login')
@@ -107,6 +140,9 @@ def top_user(request):
 
 
 def top_domain(request):
+    """
+        Computes and displays the list of all domains ranking them in order of count of their occurance.
+    """
     name = request.session.get('screen_name')
     if not name:
         return redirect('login')

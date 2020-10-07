@@ -23,26 +23,28 @@ This Django based Web application uses Twitter Api Tweepy for authentication and
    git clone https://github.com/KhushwantR/Twitter-Project
 ```
 
-2. Create a virtual environment and activate it.
+2. Install Pip if not installed already
 
-3. Create a Twitter Developer and a create project to generate Consumer_key and Consumer_secret and add them in the project/views.py file.
+3. Create a virtual environment and activate it.
 
-4. Create a Database and replace the credentials in the project/settings.py file in the Database section.
+4. Create a Twitter Developer and a create project to generate Consumer_key and Consumer_secret and add them in the project/views.py file.
 
-5. Install all the required packages using the command
+5. Create a Database and replace the credentials in the project/settings.py file in the Database section.
+
+6. Install all the required packages using the command
 ```sh
    pip install -r requirements.txt
 ```
-6. Migrate the tables to the database you created using the command:
+7. Migrate the tables to the database you created using the command:
 ```sh
    python manage.py makemigrations
    python manage.py migrate
 ```
-7. Finally you are ready to run this app locally, use the command:
+8. Finally you are ready to run this app locally, use the command:
 ```sh
    python manage.py runserver
 ```
-8. Copy and paste the url from the terminal to your browser.
+9. Copy and paste the url from the terminal to your browser.
 
 
 

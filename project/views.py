@@ -50,6 +50,8 @@ def persist_tweets(request):
         if url:
             expanded_url = url[0]['expanded_url']
             domain = extract_domain(expanded_url)
+            if domain[0:7] == 'twitter':
+                continue
             id = tweet.id
             user_name = tweet.user.name
             text = tweet.text
@@ -57,7 +59,7 @@ def persist_tweets(request):
 
             t = Tweets(tweet_id=id, user_name=user_name, text=text, user_image= image, domain=domain)
             t.save()
-            
+
     return redirect('home')
 
 

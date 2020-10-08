@@ -3,7 +3,7 @@
 Website URL: https://twitter-links.herokuapp.com/
 
 This Django based Web application uses Twitter Api Tweepy for authentication and also provides the following functionalities:
-1. Shows all the Tweets of Users home timeline that have URL in them, after the user sign-in.
+1. Shows all the Tweets of User's home timeline that have URL in them, after the user sign-in.
 2. Computes and shows the Top Twitter user who has shared the most links based on the home timeline of the users who signed in on this app.
 3. Computes and shows a list of Top Domains which were shared by users based on the home timeline of the users who signed in on this app.
 
@@ -27,24 +27,26 @@ This Django based Web application uses Twitter Api Tweepy for authentication and
 
 3. Create a virtual environment and activate it.
 
-4. Create a Twitter Developer and create a project to generate Consumer_key and Consumer_secret and add them in the project/views.py file.
+4. Create a Twitter Developer account and create a project on it to generate Consumer_key and Consumer_secret and add them in the project/views.py file.
 
-5. Create a Database and replace the credentials in the project/settings.py file in the Database section.
+5. Create a Database and replace the credentials in the project/settings.py file in the Database section with the proper breakdown.
 
 6. Install all the required packages using the command
 ```sh
    pip install -r requirements.txt
 ```
-7. Migrate the tables to the database you created using the command:
+7. Replace the SECRET_KEY in the project/settings.py file with a key of your choice.
+
+8. Migrate the tables to the database you created using the command:
 ```sh
-   python manage.py makemigrations
    python manage.py migrate
+   python manage.py makemigrations
 ```
-8. Finally you are ready to run this app locally, use the command:
+9. Finally you are ready to run this app locally, use the command:
 ```sh
    python manage.py runserver
 ```
-9. Copy and paste the url from the terminal to your browser.
+10. Copy and paste the url from the terminal to your browser.
 
 
 
